@@ -3,6 +3,19 @@
 set -o errexit
 set -o nounset
 
+# get a version and exit.
+if [ $1 = 'version' ]; then
+  CMD=$(egrep ^version: /Procfile | cut -f 2 -d ':')
+  RES=`${CMD}`
+  IFS=$'\n'
+  for line in ${RES}; do
+    if [[ ${line} =~ ^abyss-pe ]]; then
+        `echo ${line} > $2/version`
+    fi
+  done
+  exit 0
+fi
+
 # Source reads
 READS=$2
 

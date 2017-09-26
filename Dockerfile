@@ -1,9 +1,12 @@
-FROM ubuntu
+FROM ubuntu:16.04
 MAINTAINER Yukimitsu Yabuki, yukimitsu.yabuki@gmail.com
-# a bit modified Michael Barton's Dockerfile
+# a bit modified Michael Barton's Dockerfile and run files
 
-RUN apt-get update -y
-RUN apt-get install -y libsparsehash-dev libboost-all-dev openmpi-bin gcc make autoconf bsdmainutils r-base-core python
+RUN apt-get clean && \
+    apt-get update -y && \
+    apt-get install -y libsparsehash-dev libboost-all-dev openmpi-bin gcc make autoconf bsdmainutils r-base-core python && \
+    apt-get clean && \
+    rm -r /var/lib/apt/lists/*
 
 ADD http://kmergenie.bx.psu.edu/kmergenie-1.6741.tar.gz /tmp/kmergenie.tar.gz
 RUN mkdir /tmp/kmergenie
